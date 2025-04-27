@@ -1,145 +1,120 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 기본 메타 정보 설정 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>중간계 GPTs 컬렉션</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* 전체 요소 기본 스타일 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* 문서 전체 기본 스타일 */
         body {
-            font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
-            line-height: 1.5;
-            background-color: #ffffff;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 16px;
+            font-family: 'Pretendard', sans-serif;  /* 기본 폰트 설정 */
+            max-width: 800px;                       /* 최대 너비 제한 */
+            margin: 0 auto;                         /* 중앙 정렬 */
+            padding: 16px;                          /* 전체 여백 */
+            color: #333;                            /* 기본 텍스트 색상 */
+            line-height: 1.4;                       /* 줄 간격 */
         }
 
-        header {
-            margin-bottom: 24px;
-        }
-
+        /* 메인 제목 스타일 */
         h1 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: flex;                          /* 가로 배치 */
+            align-items: center;                    /* 세로 중앙 정렬 */
+            gap: 8px;                              /* 요소 간격 */
+            font-size: 22px;                       /* 글자 크기 */
+            margin-bottom: 6px;                    /* 하단 여백 */
         }
 
-        .subtitle {
-            color: #666;
-            font-size: 15px;
-            margin-bottom: 20px;
+          .subtitle {
+            color: #666;                           /* 글자 색상 */
+            font-size: 15px;                       /* 글자 크기 */
+            margin-bottom: 24px;                   /* 하단 여백 */
         }
+  
 
+        /* GPT 목록 컨테이너 */
         .gpt-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: flex;                         /* 세로 배치 설정 */
+            flex-direction: column;                /* 세로 방향 */
+            gap: 8px;                             /* 아이템 간격 */
         }
 
+        /* GPT 개별 아이템 카드 */
         .gpt-item {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 6px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            transition: all 0.2s ease;
+            display: flex;                         /* 가로 배치 */
+            justify-content: space-between;        /* 양끝 정렬 */
+            align-items: flex-start;              /* 위쪽 정렬 */
+            padding: 12px;                        /* 내부 여백 */
+            border: 1px solid #eee;               /* 테두리 */
+            border-radius: 6px;                   /* 모서리 둥글게 */
+            transition: .2s;                      /* 호버 애니메이션 */
         }
 
+        /* GPT 카드 호버 효과 */
         .gpt-item:hover {
-            border-color: #ddd;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-color: #ddd;                   /* 테두리 색상 변경 */
+            box-shadow: 0 1px 3px rgba(0,0,0,.05); /* 그림자 효과 */
         }
 
-        .gpt-content {
-            flex: 1;
-        }
-
+        /* GPT 제목 영역 */
         .gpt-title {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 2px;
-            font-weight: 600;
-            font-size: 14px;
+            display: flex;                        /* 가로 배치 */
+            align-items: center;                  /* 세로 중앙 정렬 */
+            gap: 6px;                            /* 요소 간격 */
+            margin-bottom: 2px;                  /* 하단 여백 */
+            font-weight: 600;                    /* 글자 굵기 */
+            font-size: 14px;                     /* 글자 크기 */
         }
 
+        /* GPT 설명 텍스트 */
         .gpt-description {
-            color: #666;
-            font-size: 13px;
-            margin-left: 28px;
-            line-height: 1.4;
+            color: #666;                         /* 글자 색상 */
+            font-size: 13px;                     /* 글자 크기 */
+            margin-left: 28px;                   /* 왼쪽 여백 */
         }
 
+        /* 실행하기 버튼 */
         .action-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: #f5f5f5;
-            color: #333;
-            padding: 4px 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            margin-left: 12px;
-            white-space: nowrap;
+            display: inline-flex;                /* 인라인 가로 배치 */
+            align-items: center;                 /* 세로 중앙 정렬 */
+            padding: 4px 10px;                   /* 내부 여백 */
+            margin-left: 12px;                   /* 왼쪽 여백 */
+            background: #f5f5f5;                 /* 배경색 */
+            color: #333;                         /* 글자 색상 */
+            border-radius: 4px;                  /* 모서리 둥글게 */
+            text-decoration: none;               /* 링크 밑줄 제거 */
+            font-size: 12px;                     /* 글자 크기 */
+            font-weight: 500;                    /* 글자 굵기 */
+            white-space: nowrap;                 /* 줄바꿈 방지 */
+            transition: .2s;                     /* 호버 애니메이션 */
         }
 
-        .action-button:hover {
-            background: #eee;
-        }
+        /* 버튼 호버 효과 */
+        .action-button:hover { background: #eee; }
 
-        .emoji {
-            font-size: 15px;
-            min-width: 18px;
-            text-align: center;
-        }
+        /* 이모지 아이콘 스타일 */
+        .emoji { font-size: 15px; min-width: 18px; text-align: center; }
+        
+        /* 번호 스타일 */
+        .number { color: #666; font-size: 13px; min-width: 22px; }
 
-        .number {
-            font-size: 13px;
-            color: #666;
-            margin-right: 2px;
-            min-width: 22px;
-            display: inline-block;
-        }
-
+        /* 모바일 반응형 스타일 */
         @media (max-width: 640px) {
-            body {
-                padding: 12px;
-            }
-
-            .gpt-item {
-                padding: 10px;
-            }
-
-            .action-button {
-                padding: 3px 8px;
-            }
+            body { padding: 12px; }              /* 모바일 전체 여백 축소 */
+            .gpt-item { padding: 10px; }         /* 카드 여백 축소 */
+            .action-button { padding: 3px 8px; } /* 버튼 크기 축소 */
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>
-            <span class="emoji">💼</span>
-            중간계 GPTs 컬렉션
-        </h1>
-        <p class="subtitle">자영업 사장님들을 위한 스마트 도구 모음</p>
-    </header>
+    <!-- 페이지 헤더 -->
+    <h1><span class="emoji">💼</span>중간계 마가비책 GPTs 컬렉션</h1>
+    <p class="subtitle">자영업 사장님들을 위한 스마트 도구 모음</p>
 
+    <!-- GPT 목록 시작 -->
     <div class="gpt-list">
         <div class="gpt-item">
             <div class="gpt-content">
